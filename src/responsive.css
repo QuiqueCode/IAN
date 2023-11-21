@@ -1,0 +1,8 @@
+.descripcion {
+    @media only screen and (min-width:600px){
+        .descripcion {
+            color:red;
+        }
+
+    }
+}
