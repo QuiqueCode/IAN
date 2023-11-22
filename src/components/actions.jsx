@@ -22,7 +22,6 @@ export function Acciones() {
 
   useEffect(() => {
     const resultadoCerrar = cerrar(values);
-    //console.log(resultadoCerrar);
     setBotonHabilitado(resultadoCerrar);
   });
 
@@ -49,7 +48,6 @@ export function Acciones() {
       setCards([])
       
     }).catch((error) => {
-      console.log(error);
       Swal.fire({
         icon: 'error',
         title: 'Algo salió mal',
@@ -69,7 +67,6 @@ export function Acciones() {
     };
 
     setCards([...cards, newCard]);
-    console.log("Soy card", cards)
 
   };
 
@@ -125,7 +122,6 @@ export function Acciones() {
     setCards(updatedCards);
     values[i].amount = monto;
     sessionStorage.setItem('boolean', 'true');
-    console.log("Soy values de metodo", values);
   };
 
 

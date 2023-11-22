@@ -16,10 +16,8 @@ export function DashCard() {
   const buscar = () => {
     axios.get(`${baseURL}/asientos/4/2`)
       .then((response) => {
-        console.log();
         response.data[0].monto = response.data[0].monto
         setBuscarResultados(response.data);
-        console.log("hola");
       })
       .catch((error) => {
         console.error("Error al buscar:", error);
@@ -31,7 +29,6 @@ export function DashCard() {
   const extraer = (idAsiento) => {
     axios.get(`${baseURL}/asientos/4/3?idAsiento=${idAsiento}`)
       .then((response) => {
-        console.log('aaaaaaa ', response.data);
         setextraerResultados(prevResults => ({
           ...prevResults,
           [idAsiento]: response.data,
@@ -69,7 +66,6 @@ export function DashCard() {
 
   return (
     <>
-    {console.log(asientosAgrupados)},
       {Object.keys(asientosAgrupados).map((idAsiento) => (
 
         <div key={idAsiento} className="overflow-x-auto">

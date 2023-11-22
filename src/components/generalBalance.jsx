@@ -15,7 +15,6 @@ export function GeneralBalance() {
     axios
       .get(`${baseURL}/catalogos/4/13`)
       .then((response) => {
-        console.log("data ", response.data);
         setDatos(response.data);
       })
       .catch((error) => {
@@ -28,8 +27,6 @@ export function GeneralBalance() {
     axios
       .get(`${baseURL}/catalogos/4/14`)
       .then((response) => {
-        console.log("balanceGeneral datos:", response.data);
-       console.log("soy datosssss", response.data[0].debe)
        setDebe(response.data[0].debe.toLocaleString('es-ES'));
       })
       .catch((error) => {
@@ -41,8 +38,6 @@ export function GeneralBalance() {
     axios
       .get(`${baseURL}/catalogos/4/15`)
       .then((response) => {
-        console.log("balanceGeneral datos:", response.data);
-       console.log("soy datosssss", response.data[0].haber)
        setHaber(response.data[0].haber.toLocaleString('es-ES'));
       })
       .catch((error) => {

@@ -129,7 +129,6 @@ export function TableBill() {
   
 
   const eliminarProveedor = async (idProveedor) => {
-    console.log(idProveedor);
     try {
       await axios.delete(`${baseURL}/proveedores/3?_idProveedor=${idProveedor}`);
       buscar(); // Actualiza la lista de facturas después de pagar
@@ -146,7 +145,6 @@ export function TableBill() {
     axios.get(`${baseURL}/proveedores/1`)
       .then((response) => {
         setProveedor(response.data);
-        console.log(response.data);
       })
       .catch((error) => {
         console.error("Error al buscar:", error);

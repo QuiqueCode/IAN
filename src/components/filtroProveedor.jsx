@@ -24,7 +24,6 @@ const filtrar = (pago=1, idProveedor=1) => {
   
     .then((response) => {
       resultadoFiltro = response.data;
-      console.log("SOOOOOOOOOOY EL FILTRO",resultadoFiltro);
 
     })
     .catch((error) => {
@@ -46,7 +45,6 @@ export const Suppliers = () => {
       axios.get(`${baseURL}/proveedores/1`)
         .then((response) => {
           setProveedor(response.data);
-          console.log(response.data);
         })
         .catch((error) => {
          console.error("Error al buscar:", error);

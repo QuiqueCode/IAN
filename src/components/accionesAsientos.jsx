@@ -49,14 +49,13 @@ export function DataTable(props){
       };
       const handleEdit = (i, idRegistro) => {
         let nMonto = document.getElementById('m' + i).value;
-    console.log(idRegistro, nMonto);
+
     nMonto = parseFloat(nMonto);
         axios.put(`${baseURL}/registros/3`, {
             idRegistro: idRegistro,
             monto: nMonto
           })
           .then((response) => {
-            console.log("logradooo");
           })
           .catch((error) => {
             console.error("Error al buscar:", error);

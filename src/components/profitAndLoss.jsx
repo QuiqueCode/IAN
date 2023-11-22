@@ -15,7 +15,6 @@ export function ProfitAndLoss() {
     axios
       .get(`${baseURL}/catalogos/4/9`)
       .then((response) => {
-        console.log("data ", response.data);
         setDatos(response.data);
       })
       .catch((error) => {
@@ -26,7 +25,6 @@ export function ProfitAndLoss() {
     axios
       .get(`${baseURL}/catalogos/4/10`)
       .then((response) => {
-        console.log("Perdidas y ganancias ", response.data);
      
         setTotal(response.data[0]._retorno)
       })
@@ -39,7 +37,6 @@ export function ProfitAndLoss() {
     axios
       .get(`${baseURL}/catalogos/4/12`)
       .then((response) => {
-        console.log("SumaPerdidas ", response.data);
 
        setPerdidas(response.data[0].perdidas.toLocaleString("es-ES"))
       })
@@ -51,7 +48,6 @@ export function ProfitAndLoss() {
     axios
       .get(`${baseURL}/catalogos/4/11`)
       .then((response) => {
-        console.log("SumaGanancias ", response.data);
 
         setGanancias(response.data[0].Ganancias.toLocaleString("es-ES"))
       })

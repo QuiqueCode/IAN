@@ -8,10 +8,8 @@ export function BalanceSheet(){
   const extraer = () => {
     axios.get(`${baseURL}/catalogos/4/5`)
       .then((response) => {
-        console.log("holaaaaaaaaaaa",response.data)
       })
       .catch((error) => {
-        console.error("Error al buscar:", error);
       });
   };
     return(

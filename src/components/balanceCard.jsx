@@ -15,7 +15,6 @@ export function BalanceCard(){
   const extraerDatos = () => {
     axios.get(`${baseURL}/catalogos/4/7`)
       .then((response) => {
-        console.log('data ',response.data);
         setDatos(response.data);
       })
       .catch((error) => {
@@ -25,7 +24,6 @@ export function BalanceCard(){
   const extraer = () => {
     axios.get(`${baseURL}/catalogos/4/8`)
       .then((response) => {
-        console.log('data ',response.data);
 
       setDebe(response.data.debe.toLocaleString('es-ES') )
       setHaber(response.data.haber.toLocaleString('es-ES') )

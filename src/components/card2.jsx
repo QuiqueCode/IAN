@@ -65,7 +65,6 @@ export function getData() {
     data
   };
   values.push(valuesObj);
-  console.log(values);
   resetValue();
 
   return values.length - 1;
@@ -80,10 +79,8 @@ export function cerrar(values) {
     const amount = parseFloat(values[index].amount.replace(/\./g, ''));
     if (values[index].data == 0) {
       debe += amount;
-      console.log("DEBEEEEEEEEEEEEEEE",debe)
     } else {
       haber += amount;
-      console.log("haaaaaaabeeeeeeeeeerrrrrrrrr",haber)
     }
 
     entro = true;
@@ -100,7 +97,6 @@ export function cerrar(values) {
 
 
 function resetValue() {
-  console.log("hola")
   document.getElementById('nombre').value = "";
   document.getElementById('monto').value = "";
 
