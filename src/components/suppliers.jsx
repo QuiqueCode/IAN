@@ -28,8 +28,13 @@ export function Proveedor() {
     axios.post(`${baseURL}/proveedores/2`, {
       nombre: document.getElementById("nombre").value,
       descripcion: document.getElementById("descripcion").value
-    })
+    },clearInputs())
   }};
+
+  function clearInputs() {
+    document.getElementById("nombre").value="";
+   document.getElementById("descripcion").value="";
+  }
 
   useEffect(() => {
     const resultadoCerrar = cerrar(values);
