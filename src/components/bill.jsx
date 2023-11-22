@@ -32,9 +32,9 @@ export function Factura() {
     }
   }
     function clearInputs() {
-    document.getElementById("monto").value="";
-   document.getElementById("descripcion").value="";
-    document.getElementById("fecha").value="";
+    document.getElementById("montoB").value="";
+   document.getElementById("descripcionB").value="";
+    document.getElementById("fechaB").value="";
   }
 
   const insertarDatos = () => {
