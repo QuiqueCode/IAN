@@ -30,7 +30,7 @@ export function GeneralBalance() {
       .then((response) => {
         console.log("balanceGeneral datos:", response.data);
        console.log("soy datosssss", response.data[0].debe)
-       setDebe(response.data[0].debe);
+       setDebe(response.data[0].debe.toLocaleString('es-ES'));
       })
       .catch((error) => {
         console.error("Error al buscar:", error);
@@ -43,7 +43,7 @@ export function GeneralBalance() {
       .then((response) => {
         console.log("balanceGeneral datos:", response.data);
        console.log("soy datosssss", response.data[0].haber)
-       setHaber(response.data[0].haber);
+       setHaber(response.data[0].haber.toLocaleString('es-ES'));
       })
       .catch((error) => {
         console.error("Error al buscar:", error);

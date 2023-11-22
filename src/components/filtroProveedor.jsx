@@ -6,7 +6,7 @@ const baseURL = "http://localhost:3000/api";
 export let resultadoFiltro = null;
 
 
-const buscar = () => {
+export const buscarFactura = () => {
   axios.get(`${baseURL}/facturas/4`)
     .then((response) => {
       resultadoFiltro=response.data
@@ -24,7 +24,7 @@ const filtrar = (pago=1, idProveedor=1) => {
   
     .then((response) => {
       resultadoFiltro = response.data;
-     console.log("SOOOOOOOOOOY EL FILTRO",resultadoFiltro);
+      console.log("SOOOOOOOOOOY EL FILTRO",resultadoFiltro);
 
     })
     .catch((error) => {
@@ -63,12 +63,13 @@ export const Suppliers = () => {
     <>
         <select className="p-1 text-sm  relative right-3 ml-3"  style={{color:"black"}} name="" id="proveedor" onChange={(e) => {
             const proveedor =  e.target.value;
-           filtrar(document.getElementById("pago"), proveedor);
+           filtrar(document.getElementById("pago").value, proveedor);
         }}>
         {proveedor.map((resultado) => (
         <option id="valor" value={resultado.idProveedor}>{resultado.nombre}</option>
     ))}
     </select>
+    <button onClick={buscarFactura} className='rounded-md' style={{backgroundColor:"green",width:100,height:30,position:'relative'}}>Todos</button>
     </>
   
   )};
@@ -84,8 +85,6 @@ export function FiltrarProveedor() {
             <h5>Estado de factura</h5>
             <select className="block w-full p-1 mb-6 text-sm mr-4 right-3" style={{color:"black"}} name="" id="pago" onChange={(e) => {
                 const pago = e.target.value;
-                alert(pago)
-                //setbuscarResultados()
                 filtrar(pago, document.getElementById('proveedor').value);
             }}>
               <option value="1">Pagado</option>
@@ -96,7 +95,6 @@ export function FiltrarProveedor() {
             <h5>Proveedor</h5>
             <Suppliers></Suppliers>
           </div>
-<button onClick={buscar} style={{backgroundColor:"green",width:50,height:30,position:'relative'}}>Todos</button>
         </div>
     </>
   );

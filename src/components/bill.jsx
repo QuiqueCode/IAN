@@ -14,27 +14,65 @@ import { faPieChart } from "@fortawesome/free-solid-svg-icons";
 const baseURL = "http://localhost:3000/api";
 import { FiltrarProveedor } from "./filtroProveedor";
 import { resultadoFiltro } from "./filtroProveedor";
+import { buscarFactura } from "./filtroProveedor";
 export function Factura() {
   sessionStorage.setItem("boolean", "true");
   const [cards, setCards] = useState([]);
   const [botonHabilitado, setBotonHabilitado] = useState(true);
  
+  function emptyValidate() {
+    let nombre = document.getElementById("montoB").value;
+    let monto = document.getElementById("descripcionB").value;
+    let fecha = document.getElementById("fechaB").value;
+  
+  
+ 
+  
+    if (nombre == ""||monto==""||fecha=="" ) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
 
   const insertarDatos = () => {
-    axios.post(`${baseURL}/facturas/1`, {
-      monto: document.getElementById("monto").value,
-      idProveedorFK:document.getElementById("valorP").value,
-      descripcion:document.getElementById("descripcion").value,
-      fecha:document.getElementById("fecha").value,
-      pago:0,
-    })
-    alert("Factura registrada")
+
+    if (emptyValidate()==true) {
+       Swal.fire({
+        icon: "error",
+        title: "Existen campos vacios",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+    else{
+      axios.post(`${baseURL}/facturas/1`, {
+        monto: document.getElementById("montoB").value,
+        idProveedorFK:document.getElementById("valorP").value,
+        descripcion:document.getElementById("descripcionB").value,
+        fecha:document.getElementById("fechaB").value,
+        pago:0,
+      })
+      
+      buscarFactura()
+     
+      Swal.fire({
+        icon: "success",
+        title: "Factura agregada",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+
+    
   };
   
   
   useEffect(() => {
     const resultadoCerrar = cerrar(values);
     setBotonHabilitado(resultadoCerrar);
+    buscarFactura()
 
   });
 
@@ -47,6 +85,9 @@ export function Factura() {
 
     setCards([...cards, newCard]);
   };
+
+ 
+
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-2  ">
@@ -99,14 +140,14 @@ function FacturasView() {
        
           <input
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="monto"
+            id="montoB"
             type="text"
             placeholder="Monto"
             onChange={valueFormat}
           ></input><br /><br />
               <input
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="descripcion"
+            id="descripcionB"
             type="text"
             placeholder="Descripción"
             onChange={valueFormat}
@@ -120,7 +161,7 @@ function FacturasView() {
         </label>
         <input
           className="shadow appearance-none border rounded w-1/2 py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="fecha"
+          id="fechaB"
           type="date"
         ></input>
 
@@ -149,6 +190,7 @@ function FacturasView() {
     };
     
     useEffect(() => {
+      
       buscar();
     },[proveedor]);
   
@@ -167,7 +209,7 @@ function FacturasView() {
   )};
 
 function valueFormat() {
-  const input = document.getElementById("monto");
+  const input = document.getElementById("montoB");
 
   if (input.value != "") {
     const value = input.value.replace(/\D/g, "");
@@ -181,7 +223,7 @@ function valueFormat() {
         showConfirmButton: false,
         timer: 1500,
       });
-      document.getElementById("monto").value = 0;
+      document.getElementById("montoB").value = 0;
     }
   }
 }
@@ -191,7 +233,12 @@ export function TableBill() {
   const pagarFactura = async (idFactura) => {
     try {
       await axios.put(`${baseURL}/facturas/5`, { _idFactura: idFactura });
-      alert("Factura pagada correctamente");
+      Swal.fire({
+        icon: "success",
+        title: "Pago generado",
+        showConfirmButton: false,
+        timer: 1500,
+      });
       buscar(); // Actualiza la lista de facturas después de pagar
     } catch (error) {
       alert("Error al pagar la factura:", error);
@@ -266,7 +313,7 @@ export function TableBill() {
             onClick={() => pagarFactura(resultado.idFactura)}
             disabled={resultado.pago === 1}
           >
-            {resultado.pago === 1 ? 'Exonerada' : 'Pagar'}
+            {resultado.pago === 1 ? 'Pagado' : 'Pagar'}
           </button>
         </td>
       </tr>
@@ -286,3 +333,4 @@ export function TableBill() {
     </>
   );
 }
+
