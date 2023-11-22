@@ -3,8 +3,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { yellow } from "@mui/material/colors";
 import { Link } from "react-router-dom";
 
-export function Navbar(){
+export function Navbar(){      
+  
+  function triggerDownload() {
+        const documentURL = "./public/documents/Manual de Usuario - IAN.pdf";
+        const downloadLink = document.createElement("a");
+        downloadLink.href = documentURL;
+        downloadLink.download = "Manual de Usuario.pdf";
+        downloadLink.click();
+      }
     return(
+
         <>
    <nav className="bg-gray-800">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -69,10 +78,7 @@ export function Navbar(){
             </div>
           </div>
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-            <button
-              type="button"
-              className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-            >
+            <button type="button" href="./public/documents/Manual de Usuario - IAN.pdf" download="Manual de Usuario" onClick={triggerDownload} className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
               <span className="absolute -inset-1.5"></span>
               <span className="sr-only">View notifications</span>
               <svg
