@@ -97,6 +97,7 @@ export function DashCard() {
                 {asientosAgrupados[idAsiento].map((resultado, index) => (
 
                   <DataTable
+                  key={index}
                     resultadoIdAsiento={resultado.idAsiento}
                     index={index}
                     resultadoNombreCuenta={resultado.nombreCuenta}

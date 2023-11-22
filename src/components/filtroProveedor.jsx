@@ -63,8 +63,8 @@ export const Suppliers = () => {
             const proveedor =  e.target.value;
            filtrar(document.getElementById("pago").value, proveedor);
         }}>
-        {proveedor.map((resultado) => (
-        <option id="valor" value={resultado.idProveedor}>{resultado.nombre}</option>
+        {proveedor.map((resultado,index) => (
+        <option key={index} id="valor" value={resultado.idProveedor}>{resultado.nombre}</option>
     ))}
     </select>
     <button onClick={buscarFactura} className='rounded-md' style={{backgroundColor:"green",width:100,height:30,position:'relative'}}>Todos</button>

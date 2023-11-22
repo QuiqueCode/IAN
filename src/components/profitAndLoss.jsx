@@ -25,8 +25,7 @@ export function ProfitAndLoss() {
     axios
       .get(`${baseURL}/catalogos/4/10`)
       .then((response) => {
-     
-        setTotal(response.data[0]._retorno)
+        setTotal(response.data[0]._retorno);
       })
       .catch((error) => {
         console.error("Error al buscar:", error);
@@ -37,8 +36,7 @@ export function ProfitAndLoss() {
     axios
       .get(`${baseURL}/catalogos/4/12`)
       .then((response) => {
-
-       setPerdidas(response.data[0].perdidas.toLocaleString("es-ES"))
+        setPerdidas(response.data[0].perdidas.toLocaleString("es-ES"));
       })
       .catch((error) => {
         console.error("Error al buscar:", error);
@@ -48,16 +46,12 @@ export function ProfitAndLoss() {
     axios
       .get(`${baseURL}/catalogos/4/11`)
       .then((response) => {
-
-        setGanancias(response.data[0].Ganancias.toLocaleString("es-ES"))
+        setGanancias(response.data[0].Ganancias.toLocaleString("es-ES"));
       })
       .catch((error) => {
         console.error("Error al buscar:", error);
       });
   };
-
-
-
 
   useEffect(() => {
     extraer();
@@ -92,34 +86,47 @@ export function ProfitAndLoss() {
                     nombreCuenta={data.nombreCuenta}
                     saldoNormal={data.saldoNormal}
                     saldo={data.saldo}
-                  /> 
+                  />
                 ))
               ) : (
-                <p>Cargando datos...</p> 
+                <tr>
+                  <th>
+                    <h1>Cargando datos</h1>
+                  </th>
+                </tr>
               )}
 
-                <tr className={perdidas === ganancias ? '' : ''}>
-                  <th scope="col" className="px-6 py-4">Total: </th>
-                  <th scope="col" className="px-10 py-4">{perdidas}</th>
-                  <th scope="col" className="px-10 py-4">{ganancias}</th>
-               </tr>
-
-
-              <tr className={total > 0 ? 'bg-emerald-500 text-white' : 'bg-red-500 text-white'}>
-              <th scope="col" className="px-6 py-4">
-                {total <= 0 ? 'PÉRDIDAS' : 'GANANCIAS'}
-              </th>
-
-               <th scope="col" className="px-10 py-4 text-right">
-               {total < 0 ? total.toLocaleString("es-Es") : ''}
-               </th>
-              
-               <th scope="col" className="px-10 py-4 text-right">
-               {total > 0 ? total.toLocaleString("es-ES") : ''}
-               </th>
+              <tr className={perdidas === ganancias ? "" : ""}>
+                <th scope="col" className="px-6 py-4">
+                  Total:{" "}
+                </th>
+                <th scope="col" className="px-10 py-4">
+                  {perdidas}
+                </th>
+                <th scope="col" className="px-10 py-4">
+                  {ganancias}
+                </th>
               </tr>
 
+              <tr
+                className={
+                  total > 0
+                    ? "bg-emerald-500 text-white"
+                    : "bg-red-500 text-white"
+                }
+              >
+                <th scope="col" className="px-6 py-4">
+                  {total <= 0 ? "PÉRDIDAS" : "GANANCIAS"}
+                </th>
 
+                <th scope="col" className="px-10 py-4 text-right">
+                  {total < 0 ? total.toLocaleString("es-Es") : ""}
+                </th>
+
+                <th scope="col" className="px-10 py-4 text-right">
+                  {total > 0 ? total.toLocaleString("es-ES") : ""}
+                </th>
+              </tr>
             </tbody>
           </table>
         </div>

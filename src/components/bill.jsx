@@ -19,46 +19,43 @@ export function Factura() {
   sessionStorage.setItem("boolean", "true");
   const [cards, setCards] = useState([]);
   const [botonHabilitado, setBotonHabilitado] = useState(true);
- 
+
   function emptyValidate() {
     let nombre = document.getElementById("montoB").value;
     let monto = document.getElementById("descripcionB").value;
     let fecha = document.getElementById("fechaB").value;
-    if (nombre == ""||monto==""||fecha=="" ) {
+    if (nombre == "" || monto == "" || fecha == "") {
       return true;
-    }
-    else {
+    } else {
       return false;
     }
   }
-    function clearInputs() {
-    document.getElementById("montoB").value="";
-   document.getElementById("descripcionB").value="";
-    document.getElementById("fechaB").value="";
+  function clearInputs() {
+    document.getElementById("montoB").value = "";
+    document.getElementById("descripcionB").value = "";
+    document.getElementById("fechaB").value = "";
   }
 
   const insertarDatos = () => {
-
-    if (emptyValidate()==true) {
-       Swal.fire({
+    if (emptyValidate() == true) {
+      Swal.fire({
         icon: "error",
         title: "Existen campos vacios",
         showConfirmButton: false,
         timer: 1500,
       });
-    }
-    else{
+    } else {
       axios.post(`${baseURL}/facturas/1`, {
         monto: document.getElementById("montoB").value,
-        idProveedorFK:document.getElementById("valorP").value,
-        descripcion:document.getElementById("descripcionB").value,
-        fecha:document.getElementById("fechaB").value,
-        pago:0,
-      })
+        idProveedorFK: document.getElementById("valorP").value,
+        descripcion: document.getElementById("descripcionB").value,
+        fecha: document.getElementById("fechaB").value,
+        pago: 0,
+      });
 
       clearInputs();
-      buscarFactura()
-     
+      buscarFactura();
+
       Swal.fire({
         icon: "success",
         title: "Factura agregada",
@@ -66,16 +63,12 @@ export function Factura() {
         timer: 1500,
       });
     }
-
-    
   };
-  
-  
+
   useEffect(() => {
     const resultadoCerrar = cerrar(values);
     setBotonHabilitado(resultadoCerrar);
-    buscarFactura()
-
+    buscarFactura();
   });
 
   const addCard = (val) => {
@@ -88,20 +81,18 @@ export function Factura() {
     setCards([...cards, newCard]);
   };
 
- 
-
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-2  ">
         {/*First Column*/}
         <div className="bg-gray-200 p-1 m-4 w-100">
           <FacturasView />
-             <label
+          <label
             className="block text-gray-700 text-sm font-bold mb-2"
             htmlFor="username"
           >
-        Proveedor <br />
-        <Selectsuppliers></Selectsuppliers>
+            Proveedor <br />
+            <Selectsuppliers></Selectsuppliers>
           </label>
           <div className="flex items-center justify-center">
             <button
@@ -136,18 +127,18 @@ function FacturasView() {
   return (
     <>
       <div>
+        <div className="mb-4 mr-3 self-end"></div>
         <div className="mb-4 mr-3 self-end">
-        </div>
-        <div className="mb-4 mr-3 self-end">
-       
           <input
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="montoB"
             type="text"
             placeholder="Monto"
             onChange={valueFormat}
-          ></input><br /><br />
-              <input
+          ></input>
+          <br />
+          <br />
+          <input
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="descripcionB"
             type="text"
@@ -173,42 +164,40 @@ function FacturasView() {
   );
 }
 
+export const Selectsuppliers = () => {
+  const [proveedor, setProveedor] = useState([]);
 
+  const buscar = () => {
+    axios
+      .get(`${baseURL}/proveedores/1`)
+      .then((response) => {
+        setProveedor(response.data);
+      })
+      .catch((error) => {
+        console.error("Error al buscar:", error);
+      });
+  };
 
-  export const Selectsuppliers = () => {
+  useEffect(() => {
+    buscar();
+  }, [proveedor]);
 
-    const [proveedor, setProveedor] = useState([]);
-
-    const buscar = () => {
-      axios.get(`${baseURL}/proveedores/1`)
-        .then((response) => {
-          setProveedor(response.data);
-
-        })
-        .catch((error) => {
-         console.error("Error al buscar:", error);
-  
-        });
-    };
-    
-    useEffect(() => {
-      
-      buscar();
-    },[proveedor]);
-  
-    return( 
+  return (
     <>
-        <select className="p-3  text-sm  relative right-3 ml-3" name="" id="valorP">
-        {proveedor.map((resultado) => (
-        <option id="valor" value={resultado.idProveedor}>{resultado.nombre}</option>
-    ))}
-    </select>
+      <select
+        className="p-3  text-sm  relative right-3 ml-3"
+        name=""
+        id="valorP"
+      >
+        {proveedor.map((resultado,index) => (
+          <option key={index} id="valor" value={resultado.idProveedor}>
+            {resultado.nombre}
+          </option>
+        ))}
+      </select>
     </>
-
-  
-      
-  
-  )};
+  );
+};
 
 function valueFormat() {
   const input = document.getElementById("montoB");
@@ -229,9 +218,8 @@ function valueFormat() {
     }
   }
 }
-  
-export function TableBill() {
 
+export function TableBill() {
   const pagarFactura = async (idFactura) => {
     try {
       await axios.put(`${baseURL}/facturas/5`, { _idFactura: idFactura });
@@ -250,20 +238,18 @@ export function TableBill() {
   const [facturas, setFacturas] = useState([]);
 
   const buscar = () => {
-    axios.get(`${baseURL}/facturas/4`)
+    axios
+      .get(`${baseURL}/facturas/4`)
       .then((response) => {
         setFacturas(response.data);
       })
       .catch((error) => {
         console.error("Error al buscar:", error);
-
       });
   };
   useEffect(() => {
     buscar();
-
-  },[facturas]);
-
+  }, [facturas]);
 
   return (
     <>
@@ -291,48 +277,55 @@ export function TableBill() {
                   Acción
                 </th>
                 <th scope="col" className="px-5 py-2">
-                <FiltrarProveedor></FiltrarProveedor>
+                  <FiltrarProveedor></FiltrarProveedor>
                 </th>
               </tr>
             </thead>
             {resultadoFiltro !== null && resultadoFiltro.length > 0 ? (
-  // Renderizar la tabla con los resultados filtrados
-  <tbody className="">
-    {resultadoFiltro.map((resultado) => (
-      <tr key={resultado.idCuenta} className="border-b dark:border-neutral-500">
-        <td className="whitespace-nowrap px-7 ">{resultado.idFactura}</td>
-        <td className="whitespace-nowrap px-7 ">{resultado.fecha}</td>
-        <td className="whitespace-nowrap px-7 ">{resultado.monto}</td>
-        <td className="whitespace-nowrap px-7 ">{resultado.descripcion}</td>
-        <td className="whitespace-nowrap px-7 ">{resultado.nombreProveedor}</td>
-        <td className="whitespace-nowrap px-7 ">
-          <button
-            className={`${
-              resultado.pago === 1
-                ? 'bg-red-600 hover:bg-red-600 text-white font-bold py-2 px-4 m-5 rounded'
-                : 'bg-green-600 hover:bg-green-800 text-white font-bold py-2 px-4 m-5 rounded'
-            }`}
-            onClick={() => pagarFactura(resultado.idFactura)}
-            disabled={resultado.pago === 1}
-          >
-            {resultado.pago === 1 ? 'Pagado' : 'Pagar'}
-          </button>
-        </td>
-      </tr>
-    ))}
-  </tbody>
-) : (
-  
-  <>
-<h1>SIN DATOS</h1>
-  </>
-)}
-
-
+              // Renderizar la tabla con los resultados filtrados
+              <tbody className="">
+                {resultadoFiltro.map((resultado) => (
+                  <tr
+                    key={resultado.idCuenta}
+                    className="border-b dark:border-neutral-500"
+                  >
+                    <td className="whitespace-nowrap px-7 ">
+                      {resultado.idFactura}
+                    </td>
+                    <td className="whitespace-nowrap px-7 ">
+                      {resultado.fecha}
+                    </td>
+                    <td className="whitespace-nowrap px-7 ">
+                      {resultado.monto}
+                    </td>
+                    <td className="whitespace-nowrap px-7 ">
+                      {resultado.descripcion}
+                    </td>
+                    <td className="whitespace-nowrap px-7 ">
+                      {resultado.nombreProveedor}
+                    </td>
+                    <td className="whitespace-nowrap px-7 ">
+                      <button
+                        className={`${
+                          resultado.pago === 1
+                            ? "bg-red-600 hover:bg-red-600 text-white font-bold py-2 px-4 m-5 rounded"
+                            : "bg-green-600 hover:bg-green-800 text-white font-bold py-2 px-4 m-5 rounded"
+                        }`}
+                        onClick={() => pagarFactura(resultado.idFactura)}
+                        disabled={resultado.pago === 1}
+                      >
+                        {resultado.pago === 1 ? "Pagado" : "Pagar"}
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            ) : (
+             <h1>djflkdjfdlk</h1>
+            )}
           </table>
         </div>
       </div>
     </>
   );
 }
-

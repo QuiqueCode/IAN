@@ -83,7 +83,11 @@ export function GeneralBalance() {
                   /> 
                 ))
               ) : (
-                <p>Cargando datos...</p> 
+                <tr>
+                <th>
+                  <h1>Cargando datos</h1>
+                </th>
+              </tr>
               )}
                 <tr className={debe === haber ? 'bg-emerald-500 text-white' : 'bg-red-500 text-white'}>
                   <th scope="col" className="px-6 py-4">Total: </th>

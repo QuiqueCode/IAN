@@ -25,11 +25,23 @@ export function Proveedor() {
         timer: 1250,
       });
     }else{
+
+      Swal.fire({
+        text: "Proveedor agregado",
+        icon: "success",
+        toast: true,
+        position: "top",
+        showConfirmButton: false,
+        timer: 1250,
+      });
+
     axios.post(`${baseURL}/proveedores/2`, {
       nombre: document.getElementById("nombre").value,
       descripcion: document.getElementById("descripcion").value
     },clearInputs())
-  }};
+  }
+
+};
 
   function clearInputs() {
     document.getElementById("nombre").value="";
