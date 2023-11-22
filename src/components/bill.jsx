@@ -24,16 +24,17 @@ export function Factura() {
     let nombre = document.getElementById("montoB").value;
     let monto = document.getElementById("descripcionB").value;
     let fecha = document.getElementById("fechaB").value;
-  
-  
- 
-  
     if (nombre == ""||monto==""||fecha=="" ) {
       return true;
     }
     else {
       return false;
     }
+  }
+    function clearInputs() {
+    document.getElementById("monto").value="";
+   document.getElementById("descripcion").value="";
+    document.getElementById("fecha").value="";
   }
 
   const insertarDatos = () => {
@@ -54,7 +55,8 @@ export function Factura() {
         fecha:document.getElementById("fechaB").value,
         pago:0,
       })
-      
+
+      clearInputs();
       buscarFactura()
      
       Swal.fire({
